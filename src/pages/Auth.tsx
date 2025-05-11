@@ -1,11 +1,12 @@
-import {type FormEvent, useState} from 'react'
-import database from "../lib/db/database.ts";
-import type {AuthError} from "@supabase/supabase-js";
+import { type FormEvent, useState } from 'react'
+import database from '../lib/db/database.ts'
+import type { AuthError } from '@supabase/supabase-js'
 
-type AuthErrorWithDescription = AuthError &{
+type AuthErrorWithDescription = AuthError & {
     error_description: string
     message: string
 }
+
 export default function Auth() {
     const [loading, setLoading] = useState(false)
     const [email, setEmail] = useState('')
@@ -17,7 +18,10 @@ export default function Auth() {
         const { error } = await database.auth.signInWithOtp({ email })
 
         if (error) {
-            alert((error as AuthErrorWithDescription).error_description || error.message)
+            alert(
+                (error as AuthErrorWithDescription).error_description ||
+                    error.message
+            )
         } else {
             alert('Check your email for the login link!')
         }
@@ -28,7 +32,9 @@ export default function Auth() {
         <div className="row flex flex-center">
             <div className="col-6 form-widget">
                 <h1 className="header">Supabase + React</h1>
-                <p className="description">Sign in via magic link with your email below</p>
+                <p className="description">
+                    Sign in via magic link with your email below
+                </p>
                 <form className="form-widget" onSubmit={handleLogin}>
                     <div>
                         <input
@@ -42,7 +48,11 @@ export default function Auth() {
                     </div>
                     <div>
                         <button className={'button block'} disabled={loading}>
-                            {loading ? <span>Loading</span> : <span>Send magic link</span>}
+                            {loading ? (
+                                <span>Loading</span>
+                            ) : (
+                                <span>Send magic link</span>
+                            )}
                         </button>
                     </div>
                 </form>

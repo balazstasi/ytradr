@@ -1,9 +1,9 @@
-import {useEffect, useState} from "react";
-import type {Session} from "@supabase/supabase-js";
-import database from "./database.ts";
+import { useEffect, useState } from 'react'
+import type { Session } from '@supabase/supabase-js'
+import database from './database.ts'
 
 export const useConnectToDatabase = () => {
-    const [session, setSession] = useState<Session | null>(null);
+    const [session, setSession] = useState<Session | null>(null)
 
     useEffect(() => {
         database.auth.getSession().then(({ data: { session } }) => {
@@ -16,6 +16,6 @@ export const useConnectToDatabase = () => {
     }, [])
 
     return {
-        session
+        session,
     }
 }

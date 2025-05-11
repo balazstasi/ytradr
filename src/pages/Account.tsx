@@ -1,13 +1,9 @@
-import {
-    useState,
-    useEffect,
-    type ChangeEvent
-} from 'react'
-import database from "../lib/db/database.ts";
-import type {Session} from "@supabase/supabase-js";
+import { useState, useEffect, type ChangeEvent } from 'react'
+import database from '../lib/db/database.ts'
+import type { Session } from '@supabase/supabase-js'
 
 type AccountProps = {
-    session: Session;
+    session: Session
 }
 export default function Account({ session }: AccountProps) {
     const [loading, setLoading] = useState<boolean>(true)
@@ -45,7 +41,11 @@ export default function Account({ session }: AccountProps) {
         }
     }, [session])
 
-    async function updateProfile({ event }: { event: React.FormEvent<HTMLFormElement> }) {
+    async function updateProfile({
+        event,
+    }: {
+        event: React.FormEvent<HTMLFormElement>
+    }) {
         event.preventDefault()
 
         setLoading(true)
@@ -71,7 +71,12 @@ export default function Account({ session }: AccountProps) {
         <form onSubmit={updateProfile} className="form-widget">
             <div>
                 <label htmlFor="email">Email</label>
-                <input id="email" type="text" value={session.user.email} disabled />
+                <input
+                    id="email"
+                    type="text"
+                    value={session.user.email}
+                    disabled
+                />
             </div>
             <div>
                 <label htmlFor="username">Name</label>
@@ -80,7 +85,9 @@ export default function Account({ session }: AccountProps) {
                     type="text"
                     required
                     value={username || ''}
-                    onChange={(e: ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                        setUsername(e.target.value)
+                    }
                 />
             </div>
             <div>
@@ -94,13 +101,21 @@ export default function Account({ session }: AccountProps) {
             </div>
 
             <div>
-                <button className="button block primary" type="submit" disabled={loading}>
+                <button
+                    className="button block primary"
+                    type="submit"
+                    disabled={loading}
+                >
                     {loading ? 'Loading ...' : 'Update'}
                 </button>
             </div>
 
             <div>
-                <button className="button block" type="button" onClick={() => database.auth.signOut()}>
+                <button
+                    className="button block"
+                    type="button"
+                    onClick={() => database.auth.signOut()}
+                >
                     Sign Out
                 </button>
             </div>
